@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Entity(name = "Category")
 @Getter
@@ -26,5 +28,8 @@ public class Category {
     @NotBlank( message = "Category Cannot Be Empty" )
     private String categoryName;
 
+
+        @OneToMany(mappedBy = "category" ,cascade = CascadeType.ALL)
+    private List<Product>products;
 
 }

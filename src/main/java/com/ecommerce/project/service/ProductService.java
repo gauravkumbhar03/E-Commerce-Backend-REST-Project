@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public interface ProductService {
 
-public ProductDTO addProduct(Long categoryId, Product product);
+public ProductDTO addProduct(Long categoryId, ProductDTO product);
 
     ProductResponse getAllProducts();
 
@@ -18,7 +18,7 @@ public ProductDTO addProduct(Long categoryId, Product product);
 
     ProductResponse searchProductsByKeyword(String keyword);
 
-    ProductDTO updateProduct(Long productId, Product product);
+    ProductDTO updateProduct(Long productId, ProductDTO product);
 
     ProductDTO deleteProduct(Long productId);
 

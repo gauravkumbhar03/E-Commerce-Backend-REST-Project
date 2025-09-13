@@ -20,7 +20,7 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping("/admin/categories/{categoryId}/product")
-    public ResponseEntity<ProductDTO> createProduct(@RequestBody Product product, @PathVariable Long categoryId) {
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO product, @PathVariable Long categoryId) {
         ProductDTO productDTO = productService.addProduct(categoryId, product);
         return new ResponseEntity<>(productDTO, HttpStatus.CREATED);
     }
@@ -44,7 +44,7 @@ public class ProductController {
     }
 
         @PutMapping("/admin/products/{productId}")
-    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long productId, @RequestBody Product product){
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long productId, @RequestBody ProductDTO product){
         ProductDTO productDTO = productService.updateProduct(productId,product);
         return new ResponseEntity<>(productDTO,HttpStatus.OK);
     }
