@@ -1,6 +1,7 @@
 package com.ecommerce.project.controller;
 
 
+import com.ecommerce.project.config.AppConstants;
 import com.ecommerce.project.model.Product;
 import com.ecommerce.project.payload.ProductDTO;
 import com.ecommerce.project.payload.ProductResponse;
@@ -26,40 +27,41 @@ public class ProductController {
     }
 
     @GetMapping("/public/products")
-    public ResponseEntity<ProductResponse> getAllProducts(){
-        ProductResponse productResponse = productService.getAllProducts();
-        return new ResponseEntity<>(productResponse,HttpStatus.OK);
+    public ResponseEntity<ProductResponse> getAllProducts(@RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber, @RequestParam(name = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize, @RequestParam(name = "sortBy", defaultValue = AppConstants.SORT_PRODUCT_BY, required = false) String sortBy, @RequestParam(name = "sortOrder", defaultValue = AppConstants.SORT_DIR, required = false) String sortOrder
+
+    ) {
+        ProductResponse productResponse = productService.getAllProducts(pageNumber, pageSize, sortBy, sortOrder);
+        return new ResponseEntity<>(productResponse, HttpStatus.OK);
     }
 
     @GetMapping("/public/categories/{categoryId}/products")
-    public ResponseEntity<ProductResponse> searchProductsByCategory(@PathVariable Long categoryId){
+    public ResponseEntity<ProductResponse> searchProductsByCategory(@PathVariable Long categoryId) {
         ProductResponse productResponse = productService.searchProductsByCategory(categoryId);
-        return new ResponseEntity<>(productResponse,HttpStatus.OK);
+        return new ResponseEntity<>(productResponse, HttpStatus.OK);
     }
 
     @GetMapping("/public/categories/{keyword}/productsByName")
-    public ResponseEntity<ProductResponse> searchProductsByKeyword(@PathVariable String keyword){
+    public ResponseEntity<ProductResponse> searchProductsByKeyword(@PathVariable String keyword) {
         ProductResponse productResponse = productService.searchProductsByKeyword(keyword);
-        return new ResponseEntity<>(productResponse,HttpStatus.OK);
+        return new ResponseEntity<>(productResponse, HttpStatus.OK);
     }
 
-        @PutMapping("/admin/products/{productId}")
-    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long productId, @RequestBody ProductDTO product){
-        ProductDTO productDTO = productService.updateProduct(productId,product);
-        return new ResponseEntity<>(productDTO,HttpStatus.OK);
+    @PutMapping("/admin/products/{productId}")
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long productId, @RequestBody ProductDTO product) {
+        ProductDTO productDTO = productService.updateProduct(productId, product);
+        return new ResponseEntity<>(productDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/admin/products/deleteProduct/{productId}")
-    public  ResponseEntity<ProductDTO> deleteProduct(@PathVariable Long productId){
+    public ResponseEntity<ProductDTO> deleteProduct(@PathVariable Long productId) {
         ProductDTO productDTO = productService.deleteProduct(productId);
-        return new ResponseEntity<>(productDTO,HttpStatus.OK);
+        return new ResponseEntity<>(productDTO, HttpStatus.OK);
     }
 
     @PutMapping("/admin/products/{productId}/image")
-    public  ResponseEntity<ProductDTO>updateImage (@PathVariable Long productId,
-                                                   @RequestParam("image")MultipartFile image) throws IOException {
-        ProductDTO updatedProduct = productService.updateImage(productId,image);
-        return new ResponseEntity<>(updatedProduct,HttpStatus.OK);
+    public ResponseEntity<ProductDTO> updateImage(@PathVariable Long productId, @RequestParam("image") MultipartFile image) throws IOException {
+        ProductDTO updatedProduct = productService.updateImage(productId, image);
+        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
     }
 }
 
