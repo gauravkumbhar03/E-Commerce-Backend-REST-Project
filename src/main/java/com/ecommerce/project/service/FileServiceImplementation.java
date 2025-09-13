@@ -23,16 +23,11 @@ public class FileServiceImplementation implements FileService {
         String fileName = randomId.concat(originalFilename.substring(originalFilename.lastIndexOf('.')));
 
         String filePath = path + File.separator + fileName;
-
         File folder = new File(path);
         if (!folder.exists()){
             folder.mkdir();
         }
-
         Files.copy(file.getInputStream(), Paths.get(filePath));
-
-
-
 
         return fileName;
 
