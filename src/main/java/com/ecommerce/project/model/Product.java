@@ -1,28 +1,28 @@
 package com.ecommerce.project.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
-
     private String productName;
-    private Long productPrice;
+    private String description;
+    private  String image;
+    private Integer quantity;
+    private double price;
+    private double discount;
+    private double specialPrice;
 
     @ManyToOne
-    @JoinColumn(name = "categoryId")
-    @JsonBackReference
-    private Category productCategory;
-
-
+    @JoinColumn(name = "category_id")
+    private Category category;
 
 }
